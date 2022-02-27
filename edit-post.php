@@ -20,22 +20,6 @@ if(isset($_POST['signout'])){
 	header('location:index.php');
 }
 
-if(isset($_POST['postBtn'])){
-	$sql="INSERT INTO `post_comments`(`post_id`, `user_id`, `comment`) VALUES (".$_GET['post_id'].",".$id.",'".$_POST['comment']."')";
-	$run=mysqli_query($conn,$sql);
-
-	if (isset($run)) {
-		 
-		 header('location:post-preview.php?post_id='.$_GET['post_id']);
-		  
-		 $flag="success";
-
-	}
-	else {
-  		$flag="true";
-	}
-}
-
 if(isset($_POST['updateBtn'])){
 	$id=$_GET['post_id'];
 	$title=$_POST['title'];

@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once('db.php');
+$_SESSION['flag']='null';
 if(isset($_SESSION['id'])){
 
  		  $email=$_SESSION['email'];
@@ -19,7 +20,23 @@ if(isset($_POST['signout'])){
 	header('location:index.php');
 }
 
+if(isset($_POST['updateBtn'])){
+	
+	
+	$answer=$_POST['answer'];
+	$sql="UPDATE `post_comments` SET `comment`='".$answer."',`status`='P' WHERE `comment_id`=".$_GET['answer_id'];
+	//echo $sql;
+	
+	$run=mysqli_query($conn,$sql);
+	if(isset($run)){
+		$_SESSION['flag']='success';
+		
 
+	}
+	else{
+		$_SESSION['flag']='fail';
+	}
+}
 
 ?>
 
@@ -42,33 +59,44 @@ if(isset($_POST['signout'])){
 
 		<!-- Post and comment Section Row -->
 		<div class="w3-twothird w3-row-container" style="margin-left:16%;margin-top:6%">
-				
+					
+				<?php 
+				if($_SESSION['flag']=="success"){?>
+				<div class="w3-panel w3-pale-green w3-leftbar w3-border-green">
+				  <p>Your Questin has been updated</p>
+				</div><?php }?>
+				<?php 
+			if($_SESSION['flag']=="fail"){?>
+			<div class="w3-panel w3-pale-red w3-leftbar w3-border-red">
+				  <p>Login Failed.. Please Check Email/Password</p>
+			</div><?php }?>
 
 				<!-- Question Row  -->
 				<div class="w3-row-container">
 				<!-- Question -->
 				<?php 
 				if(isset($_SESSION['id'])){
-						$sql="SELECT * FROM `post_comments` JOIN user on user_id=postie_user_id WHERE postie_user_id=".$_SESSION['id'];
-						//echo $sql;
+						$sql="SELECT * FROM `post_comments` WHERE `comment_id`=".$_GET['answer_id'];
 						$run=mysqli_query($conn,$sql);
-						while($row = mysqli_fetch_row($run))
-						{
+						$row = mysqli_fetch_row($run)
 						
 				?>
 					<div class="w3-panel w3-border w3-light-grey w3-round-large">
-						<h2><?php echo $row[8];?></h2>
-						<h5><?php echo $row[3];?></h5>
+						<form method="POST" action="">
+						
+						<label>Answer</label>
+						<textarea  name="answer" class="w3-input w3-border w3-border-dark-grey"><?php echo $row[3];?> </textarea> 
 						<div class="w3-bar">
 							<span class="w3-badge w3-dark-grey  w3-bar-item w3-margin-bottom"><i class="fa fa-caret-up"></i> <?php echo $row[4];?></span>
 							<span class="w3-bar-item w3-dark-grey  w3-badge w3-margin-left"><i class="fa fa-caret-down"></i> <?php echo $row[5];?></span>
-							<a href="delete-answer.php?answer_id=<?php echo $row[0]?>" class="w3-bar-item w3-button w3-grey w3-right w3-margin-top w3-margin-bottom ">Delete Answer <i class="fa fa-eye"></i></a>
 
-							<a href="edit-answer.php?answer_id=<?php echo $row[0]?>" class="w3-bar-item w3-button w3-grey w3-right w3-margin-top w3-margin-bottom w3-margin-right">Edit <i class="fa fa-pencil"></i></a>
+
+							<button type="submit" name="updateBtn" class="w3-bar-item w3-button w3-grey w3-right w3-margin-top w3-margin-bottom">Update Question <i class="fa fa-pencil"></i></button>
+
 						</div>
+					</form>
 					</div>
 				<?php 
-					}
 					}
 				?>
 				<!-- Question -->
