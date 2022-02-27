@@ -13,7 +13,7 @@ else{
 
 }
 
-
+$flag="";
 if(isset($_POST['signout'])){
 	session_destroy();
 	header('location:index.php');
@@ -56,6 +56,12 @@ if(isset($_POST['profileBtn'])){
 
 				<!-- profile Row  -->
 				<div class="w3-row-container">
+					<?php 
+					if($flag=="success"){?>
+						<div class="w3-panel w3-pale-green w3-leftbar w3-border-green">
+			  				<p>Profile Updated</p>
+						</div>
+					<?php }?>
 				<!-- profile -->
 				<?php 
 				

@@ -20,7 +20,7 @@ if(isset($_POST['signout'])){
 }
 
 if(isset($_POST['postBtn'])){
-	$sql="INSERT INTO `post_comments`(`post_id`, `user_id`, `comment`) VALUES (".$_GET['post_id'].",".$id.",'".$_POST['comment']."')";
+	$sql="INSERT INTO `post_comments`(`post_id`, `postie_user_id`, `comment`) VALUES (".$_GET['post_id'].",".$id.",'".$_POST['comment']."')";
 	$run=mysqli_query($conn,$sql);
 
 	if (isset($run)) {
@@ -35,6 +35,15 @@ if(isset($_POST['postBtn'])){
 	}
 }
 
+if(isset($_POST['statusA'])){
+ $sql="UPDATE `post_comments` SET `status`='A' WHERE `comment_id`=".$_POST['commentId'];
+ //echo $sql;
+ $run=mysqli_query($conn,$sql);
+}
+if(isset($_POST['statusN'])){
+$sql="UPDATE `post_comments` SET `status`='N' WHERE `comment_id`=".$_POST['commentId'];
+$run=mysqli_query($conn,$sql);
+}
 ?>
 
 <!DOCTYPE html>
@@ -84,20 +93,80 @@ if(isset($_POST['postBtn'])){
 
 				<!-- Posted Comment -->
 					<?php
-						$sql="SELECT * FROM `post_comments` pc JOIN `user` u on u.user_id=pc.user_id WHERE `post_id`=".$_GET['post_id'];
+						$sql="SELECT p.`post_id`,u.`user_id`,uc.`name`,`status`,`comment`,pc.`upvote`,pc.`downvote`,`postie_user_id`,`comment_id` FROM `post` p JOIN `user` u on u.user_id=p.user_id JOIN `post_comments` pc ON pc.post_id=p.post_id join `user` uc on uc.`user_id` = postie_user_id WHERE  p.post_id=".$_GET['post_id']."";
 						$run=mysqli_query($conn,$sql);
 						//echo $sql;
 						while ($row = mysqli_fetch_row($run)) {
+
+							if ($row[3]=='A') {
+								
 						?>	
-					<div class="w3-panel w3-border w3-light-grey w3-round-large">
-						<h2><?php echo $row[7];?></h2>
-						<h5><?php echo $row[3];?></h5>
+					<div class="w3-panel w3-leftbar w3-border-green   w3-light-grey w3-round-large">
 						<div class="w3-bar">
-							<span class="w3-badge w3-dark-grey w3-bar-item w3-margin-bottom"><i class="fa fa-caret-up"></i><?php echo $row[4];?></span>
-							<span class="w3-bar-item w3-dark-grey  w3-badge w3-margin-left"><i class="fa fa-caret-down"></i><?php echo $row[4];?></span>
+							<h2 class="w3-bar-item"><?php echo $row[2];?></h2>
+							
+								<h2 class="w3-bar-item w3-text-green w3-right">Accepted</h2>
+								
+						</div>
+						<h5><?php echo $row[4];?></h5>
+						<div class="w3-bar">
+
+							<span class="w3-badge w3-dark-grey w3-bar-item w3-margin-bottom"><i class="fa fa-caret-up"></i><?php echo $row[5];?></span>
+							<span class="w3-bar-item w3-dark-grey  w3-badge w3-margin-left"><i class="fa fa-caret-down"></i><?php echo $row[6];?></span>
 						</div>
 					</div>
 					<?php
+							}
+							else if($row[3]=='N'){
+
+								?>	
+					<div class="w3-panel w3-leftbar w3-border-red   w3-light-grey w3-round-large">
+						<div class="w3-bar">
+							<h2 class="w3-bar-item"><?php echo $row[2];?></h2>
+							
+							<h2 class="w3-bar-item w3-text-red w3-right">Not Accepted</h2>		
+								
+						</div>
+						<h5><?php echo $row[4];?></h5>
+						<div class="w3-bar">
+
+							<span class="w3-badge w3-dark-grey w3-bar-item w3-margin-bottom"><i class="fa fa-caret-up"></i><?php echo $row[5];?></span>
+							<span class="w3-bar-item w3-dark-grey  w3-badge w3-margin-left"><i class="fa fa-caret-down"></i><?php echo $row[6];?></span>
+						</div>
+					</div>
+					<?php
+							}
+							else{
+								?>	
+					<div class="w3-panel w3-leftbar w3-border-orange   w3-light-grey w3-round-large">
+						<div class="w3-bar">
+							<h2 class="w3-bar-item"><?php echo $row[2];?></h2>
+							
+							<h2 class="w3-bar-item w3-text-orange w3-right">Pending</h2>		
+								
+						</div>
+						<h5><?php echo $row[4];?></h5>
+						<div class="w3-bar">
+							<span class="w3-badge w3-dark-grey w3-bar-item w3-margin-bottom"><i class="fa fa-caret-up"></i><?php echo $row[5];?></span>
+							<span class="w3-bar-item w3-dark-grey  w3-badge w3-margin-left"><i class="fa fa-caret-down"></i><?php echo $row[6];?></span>
+							<?php
+
+
+							if ($id==$row[1]) {
+								?>
+							<form method="POST" action="">
+								<input type="number" name="commentId" value="<?php echo $row[8];?>" class="w3-hide">
+								<button name="statusA" class="w3-bar-item w3-button w3-green w3-right w3-margin-top w3-margin-bottom w3-margin-right">Accepted <i class="fa fa-check"></i></button>
+								<button name="statusN" class="w3-bar-item w3-button w3-red w3-right w3-margin-top w3-margin-bottom w3-margin-right">Not Accepted <i class="fa fa-close	"></i></button>
+							</form>
+							<?php
+							}
+							?>
+						</div>
+					</div>
+					<?php
+							
+							}
 							}
 					?>
 				<!-- Posted Comment -->

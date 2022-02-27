@@ -19,6 +19,8 @@ if(isset($_POST['signout'])){
 	header('location:index.php');
 }
 
+
+
 ?>
 
 <!DOCTYPE html>
@@ -47,22 +49,22 @@ if(isset($_POST['signout'])){
 				<!-- Question -->
 				<?php 
 				if(isset($_SESSION['id'])){
-						$sql="SELECT * FROM `post` WHERE `user_id`=".$_SESSION['id'];
-						//echo $sql;
+						$sql="SELECT * FROM `post_comments` JOIN user on user_id=postie_user_id WHERE postie_user_id=".$_SESSION['id'];
+						echo $sql;
 						$run=mysqli_query($conn,$sql);
 						while($row = mysqli_fetch_row($run))
 						{
 						
 				?>
 					<div class="w3-panel w3-border w3-light-grey w3-round-large">
-						<h2><?php echo $row[2];?></h2>
+						<h2><?php echo $row[8];?></h2>
 						<h5><?php echo $row[3];?></h5>
 						<div class="w3-bar">
 							<span class="w3-badge w3-dark-grey  w3-bar-item w3-margin-bottom"><i class="fa fa-caret-up"></i> <?php echo $row[4];?></span>
 							<span class="w3-bar-item w3-dark-grey  w3-badge w3-margin-left"><i class="fa fa-caret-down"></i> <?php echo $row[5];?></span>
-							<a href="post-preview.php?post_id=<?php echo $row[0]; ?>" class="w3-bar-item w3-button w3-grey w3-right w3-margin-top w3-margin-bottom ">View Answers <i class="fa fa-eye"></i></a>
+							<a  class="w3-bar-item w3-button w3-grey w3-right w3-margin-top w3-margin-bottom ">Delete Answer <i class="fa fa-eye"></i></a>
 
-							<a href="edit-post.php?post_id=<?php echo $row[0]; ?>" class="w3-bar-item w3-button w3-grey w3-right w3-margin-top w3-margin-bottom w3-margin-right">Edit <i class="fa fa-pencil"></i></a>
+							<a  class="w3-bar-item w3-button w3-grey w3-right w3-margin-top w3-margin-bottom w3-margin-right">Edit <i class="fa fa-pencil"></i></a>
 						</div>
 					</div>
 				<?php 

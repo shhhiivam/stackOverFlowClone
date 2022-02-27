@@ -99,7 +99,7 @@ $query="INSERT INTO `post`( `user_id`, `title`, `question`) VALUES (".$id.",'".$
 						while ($row = mysqli_fetch_row($run)) {
 						?>	
 						
-					<div class="w3-panel w3-border w3-light-grey w3-round-large">
+					<div class="w3-panel  w3-leftbar w3-border-dark-grey w3-light-grey w3-round-large">
 						<h2><?php echo $row[2];?></h2>
 						<h5><?php echo $row[3];?></h5>
 						<div class="w3-bar">
