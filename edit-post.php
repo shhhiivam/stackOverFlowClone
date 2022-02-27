@@ -90,11 +90,11 @@ if(isset($_POST['updateBtn'])){
 						<label>Discription</label>
 						<textarea  name="dis" class="w3-input"><?php echo $row[3];?> </textarea> 
 						<div class="w3-bar">
-							<span class="w3-badge w3-dark-grey  w3-bar-item w3-margin-bottom"><i class="fa fa-caret-up"></i> <?php echo $row[4];?></span>
-							<span class="w3-bar-item w3-dark-grey  w3-badge w3-margin-left"><i class="fa fa-caret-down"></i> <?php echo $row[5];?></span>
+							<span class=" w3-dark-grey  w3-bar-item w3-margin-bottom"><i class="fa fa-caret-up"></i> <?php echo $row[4];?></span>
+							<span class="w3-bar-item w3-dark-grey   w3-margin-left"><i class="fa fa-caret-down"></i> <?php echo $row[5];?></span>
 
 
-							<button type="submit" name="updateBtn" class="w3-bar-item w3-button w3-grey w3-right w3-margin-top w3-margin-bottom">Update Question <i class="fa fa-pencil"></i></button>
+							<button type="submit" name="updateBtn" class="w3-bar-item w3-button w3-grey w3-right w3-margin-top w3-margin-bottom w3-text-dark-grey">Update Question <i class="fa fa-pencil"></i></button>
 
 						</div>
 					</form>

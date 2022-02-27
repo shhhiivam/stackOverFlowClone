@@ -20,7 +20,7 @@ if(isset($_POST['signout'])){
 }
 
 if(isset($_POST['postBtn'])){
-	$sql="INSERT INTO `post_comments`(`post_id`, `postie_user_id`, `comment`) VALUES (".$_GET['post_id'].",".$id.",'".$_POST['comment']."')";
+	$sql="INSERT INTO `post_comments`(`post_id`, `postie_user_id`, `comment`) VALUES (".$_GET['post_id'].",".$id.",'".htmlspecialchars($_POST['comment'])."')";
 	$run=mysqli_query($conn,$sql);
 
 	if (isset($run)) {
@@ -80,9 +80,10 @@ $run=mysqli_query($conn,$sql);
 					<div class="w3-panel w3-border w3-light-grey w3-round-large">
 						<h2><?php echo $row[2];?></h2>
 						<h5><?php echo $row[3];?></h5>
+							
 						<div class="w3-bar">
-							<span class="w3-badge w3-dark-grey  w3-bar-item w3-margin-bottom"><i class="fa fa-caret-up"></i> <?php echo $row[4];?></span>
-							<span class="w3-bar-item w3-dark-grey  w3-badge w3-margin-left"><i class="fa fa-caret-down"></i> <?php echo $row[5];?></span>
+							<span class="w3-button w3-dark-grey  w3-bar-item w3-margin-bottom"><i class="	fa fa-thumbs-o-up"></i>  <?php echo $row[4];?></span>
+							<span class="w3-bar-item w3-dark-grey  w3-button w3-margin-left"><i class="fa fa-thumbs-o-down 	"></i> <?php echo $row[5];?></span>
 						</div>
 					</div>
 				<?php 
@@ -103,16 +104,16 @@ $run=mysqli_query($conn,$sql);
 						?>	
 					<div class="w3-panel w3-leftbar w3-border-green   w3-light-grey w3-round-large">
 						<div class="w3-bar">
-							<h2 class="w3-bar-item"><?php echo $row[2];?></h2>
+							<h4 class="w3-bar-item"><?php echo $row[2];?></h4>
 							
-								<h2 class="w3-bar-item w3-text-green w3-right">Accepted</h2>
+								<h4 class="w3-bar-item w3-text-green w3-right">Accepted <i class="fa fa-check"></i></h4>
 								
 						</div>
 						<h5><?php echo $row[4];?></h5>
 						<div class="w3-bar">
+							<span class="w3-button w3-dark-grey w3-bar-item w3-margin-bottom"><i class="	fa fa-thumbs-o-up"></i> <?php echo $row[5];?></span>
 
-							<span class="w3-badge w3-dark-grey w3-bar-item w3-margin-bottom"><i class="fa fa-caret-up"></i><?php echo $row[5];?></span>
-							<span class="w3-bar-item w3-dark-grey  w3-badge w3-margin-left"><i class="fa fa-caret-down"></i><?php echo $row[6];?></span>
+							<span class="w3-bar-item w3-dark-grey  w3-button w3-margin-left"><i class="fa fa-thumbs-o-down 	"></i> <?php echo $row[6];?></span>
 						</div>
 					</div>
 					<?php
@@ -122,16 +123,16 @@ $run=mysqli_query($conn,$sql);
 								?>	
 					<div class="w3-panel w3-leftbar w3-border-red   w3-light-grey w3-round-large">
 						<div class="w3-bar">
-							<h2 class="w3-bar-item"><?php echo $row[2];?></h2>
+							<h4 class="w3-bar-item"><?php echo $row[2];?></h4>
 							
-							<h2 class="w3-bar-item w3-text-red w3-right">Not Accepted</h2>		
+							<h4 class="w3-bar-item w3-text-red w3-right">Not Accepted <i class="fa fa-close"></i></h4>		
 								
 						</div>
 						<h5><?php echo $row[4];?></h5>
 						<div class="w3-bar">
+							<span class="w3-button w3-dark-grey w3-bar-item w3-margin-bottom"><i class="	fa fa-thumbs-o-up"></i> <?php echo $row[5];?></span>
 
-							<span class="w3-badge w3-dark-grey w3-bar-item w3-margin-bottom"><i class="fa fa-caret-up"></i><?php echo $row[5];?></span>
-							<span class="w3-bar-item w3-dark-grey  w3-badge w3-margin-left"><i class="fa fa-caret-down"></i><?php echo $row[6];?></span>
+							<span class="w3-bar-item w3-dark-grey  w3-button w3-margin-left"><i class="fa fa-caret-down"></i><?php echo $row[6];?></span>
 						</div>
 					</div>
 					<?php
@@ -140,15 +141,16 @@ $run=mysqli_query($conn,$sql);
 								?>	
 					<div class="w3-panel w3-leftbar w3-border-orange   w3-light-grey w3-round-large">
 						<div class="w3-bar">
-							<h2 class="w3-bar-item"><?php echo $row[2];?></h2>
+							<h4 class="w3-bar-item"><?php echo $row[2];?></h4>
 							
-							<h2 class="w3-bar-item w3-text-orange w3-right">Pending</h2>		
+							<h4 class="w3-bar-item w3-text-orange w3-right">Pending <i class="w3-text-red fa fa-spinner"></i> </h4>		
 								
 						</div>
 						<h5><?php echo $row[4];?></h5>
+							
 						<div class="w3-bar">
-							<span class="w3-badge w3-dark-grey w3-bar-item w3-margin-bottom"><i class="fa fa-caret-up"></i><?php echo $row[5];?></span>
-							<span class="w3-bar-item w3-dark-grey  w3-badge w3-margin-left"><i class="fa fa-caret-down"></i><?php echo $row[6];?></span>
+							<span class="w3-button w3-dark-grey w3-bar-item w3-margin-bottom"><i class="	fa fa-thumbs-o-up"></i> <?php echo $row[5];?></span>
+							<span class="w3-bar-item w3-dark-grey  w3-button w3-margin-left"><i class="fa fa-thumbs-o-down 	"></i><?php echo $row[6];?></span>
 							<?php
 
 

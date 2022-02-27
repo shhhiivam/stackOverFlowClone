@@ -1,6 +1,8 @@
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,100&family=Shippori+Antique+B1&display=swap');
-</style>
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;1,300&family=Shippori+Antique+B1&display=swap');
+/*
+font-family: 'Open Sans', sans-serif;
+font-family: 'Shippori Antique B1', sans-serif;*/
 
 .logo{
 	font-family: 'Shippori Antique B1', sans-serif;
@@ -17,5 +19,9 @@
 }
 
 .signup-form{
-	
+	font-family: 'Open Sans', sans-serif;
 }
+.sidebar-font a{
+	font-family: 'Shippori Antique B1', sans-serif;
+}
+</style>

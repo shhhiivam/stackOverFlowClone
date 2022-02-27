@@ -20,7 +20,7 @@ if(isset($_POST['signout'])){
 }
 $flag="false";
 if(isset($_POST['postBtn'])){
-$query="INSERT INTO `post`( `user_id`, `title`, `question`) VALUES (".$id.",'".$_POST['title']."','".$_POST['question']."')";
+$query="INSERT INTO `post`( `user_id`, `title`, `question`) VALUES (".$id.",'".$_POST['title']."','".htmlspecialchars($_POST['question'])."')";
 
 	
 	$run=mysqli_query($conn,$query);
@@ -47,6 +47,7 @@ $query="INSERT INTO `post`( `user_id`, `title`, `question`) VALUES (".$id.",'".$
 <html>
 <head>
 	<?php include_once('head.php') ?>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 	<!-- Top Header -->
@@ -73,9 +74,9 @@ $query="INSERT INTO `post`( `user_id`, `title`, `question`) VALUES (".$id.",'".$
 							Right Your question here
 						</label>
 						</p>
-						<p><input type="text" name="tags" class="w3-input w3-margin-top" placeholder="use comma for multiple tags" required></p>
+						<p><input type="text" name="tags" class="w3-input w3-margin-top" placeholder="use 	comma for multiple tags" required></p>
 						 <p> 
-						 <button type="submit" class="w3-button  w3-right w3-dark-grey w3-margin-bottom" name="postBtn">post</button>
+						 <button type="submit" class="w3-button  w3-right w3-dark-grey w3-margin-bottom" name="postBtn">Post <i class="fa fa-share-square-o"></i></button>
 						 <label>
 							Tags	
 						</label>
@@ -99,13 +100,13 @@ $query="INSERT INTO `post`( `user_id`, `title`, `question`) VALUES (".$id.",'".$
 						while ($row = mysqli_fetch_row($run)) {
 						?>	
 						
-					<div class="w3-panel  w3-leftbar w3-border-dark-grey w3-light-grey w3-round-large">
-						<h2><?php echo $row[2];?></h2>
-						<h5><?php echo $row[3];?></h5>
+					<div class="w3-panel w3-leftbar w3-border w3-border-grey w3-light-grey w3-round-large">
+						<h3 class="w3-text-dark-grey" style="font-family: 'Shippori Antique B1', sans-serif;"><a href="post-preview.php?post_id=<?php echo $row[0]; ?>" style="text-decoration:none"><?php echo $row[2];?></a></h3>
+						<p  style="font-family: 'Open Sans', sans-serif;"><?php echo $row[3];?></p>
 						<div class="w3-bar">
-							<span class="w3-badge w3-dark-grey w3-bar-item w3-margin-bottom"><i class="fa fa-caret-up"></i> <?php echo $row[4];?></span>
-							<span class="w3-bar-item w3-dark-grey w3-badge w3-margin-left"><i class="fa fa-caret-down"></i><?php echo $row[4];?> </span>
-							<a href="post-preview.php?post_id=<?php echo $row[0]; ?>" class="w3-bar-item w3-button w3-grey w3-right w3-margin-top w3-margin-bottom">View <i class="fa fa-plus"></i></a>
+							<span class=" w3-dark-grey w3-button w3-bar-item w3-margin-bottom"><i class="	fa fa-thumbs-o-up"></i> <?php echo $row[4];?></span>
+							<span class="w3-bar-item w3-dark-grey w3-button w3-margin-left"><i class="fa fa-thumbs-o-down 	"></i> <?php echo $row[4];?> </span>
+							<a href="post-preview.php?post_id=<?php echo $row[0]; ?>" class="w3-bar-item w3-button w3-grey w3-right w3-margin-top w3-margin-bottom w3-text-dark-grey">View <i class="fa fa-plus"></i></a>
 						</div>
 					</div>
 

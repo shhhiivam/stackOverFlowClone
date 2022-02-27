@@ -18,7 +18,7 @@ if(isset($_GET['answer_id'])){
 	$run=mysqli_query($conn,$sql);
 	if(isset($run)){
 		$_SESSION['flag']='success';
-		header('location:my-answer.php');
+		header('location:my-answers.php');
 		
 
 	}
